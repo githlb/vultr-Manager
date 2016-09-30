@@ -16,6 +16,7 @@
     <string name="more">More</string>
     <string name="label">Label</string>
     <string name="Location">Location</string>
+    <string name="run_staus">Run Staus</string>
     <string name="Main_IP">Main IP</string>
     <string name="OS">OS</string>
     <string name="Initial_Username">Initial Username</string>

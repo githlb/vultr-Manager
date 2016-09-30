@@ -17,7 +17,7 @@ public class AppUtil {
                     @Override
                     public void run() {
                         Toast toast = Toast.makeText(activity, content,
-                                Toast.LENGTH_SHORT);
+                                Toast.LENGTH_LONG);
                         toast.show();
                     }
                 });

@@ -60,7 +60,7 @@ public class InstanceAdapter extends BaseAdapter {
         } else {
             holder.name.setText(instance.getLabel());
         }
-        holder.ip.setText(instance.getIp() + " " + instance.getStatus());
+        holder.ip.setText(instance.getIp() + " " + instance.getPowerStatus());
         return convertView;
     }
 
