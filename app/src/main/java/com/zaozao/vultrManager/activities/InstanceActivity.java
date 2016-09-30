@@ -16,7 +16,7 @@ import com.zaozao.vultrManager.utils.ApiKeyStore;
 import com.zaozao.vultrManager.utils.AppUtil;
 import com.zaozao.vultrManager.utils.IConstant;
 import com.zaozao.vultrManager.adapters.FragmentPagerAdapterEx;
-import com.zaozao.vultrManager.fragments.TestFragment;
+import com.zaozao.vultrManager.fragments.ControlFragment;
 
 import org.apache.http.Header;
 
@@ -30,7 +30,8 @@ import butterknife.InjectView;
  * Created by chenqisheng on 14/11/15.
  */
 public class InstanceActivity extends BaseActivity {
-    final static int[] title = {R.string.server_info, R.string.usage_graph, R.string.ipv4, R.string.tool};
+    //    final static int[] title = {R.string.server_info, R.string.usage_graph, R.string.ipv4, R.string.tool};
+    final static int[] title = {R.string.server_info, R.string.tool};
     @InjectView(R.id.tabPageIndicator)
     TabPageIndicator tabPageIndicator;
     @InjectView(R.id.viewPager)
@@ -38,9 +39,7 @@ public class InstanceActivity extends BaseActivity {
 
     private FragmentPagerAdapterEx mPagerAdapter;
     private InfoFragment infoFragment;
-    private TestFragment online;
-    private TestFragment feedback;
-    private TestFragment tool;
+    private ControlFragment tool;
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
     private Instance serverInfo;
     private String subId;
@@ -55,15 +54,10 @@ public class InstanceActivity extends BaseActivity {
         if (bundle != null) {
             subId = bundle.getString(IConstant.PARAMS_SUBID);
         }
-        tool = new TestFragment();
+        tool = new ControlFragment();
         infoFragment = new InfoFragment();
-        online = new TestFragment();
-        feedback = new TestFragment();
-
-
+        tool.setSubId(subId);
         fragmentList.add(infoFragment);
-        fragmentList.add(online);
-        fragmentList.add(feedback);
         fragmentList.add(tool);
 
         mPagerAdapter = new FragmentPagerAdapterEx(this, getSupportFragmentManager(), fragmentList, title);

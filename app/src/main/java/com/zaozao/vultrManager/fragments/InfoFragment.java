@@ -20,6 +20,8 @@ import butterknife.InjectView;
 public class InfoFragment extends Fragment {
     @InjectView(R.id.label)
     TextView label;
+    @InjectView(R.id.run_status)
+    TextView runStatus;
     @InjectView(R.id.main_ip)
     TextView mainIp;
     @InjectView(R.id.os)
@@ -53,6 +55,7 @@ public class InfoFragment extends Fragment {
 
     public void refresh() {
         label.setText(instance.getLabel());
+        runStatus.setText(instance.getPowerStatus());
         mainIp.setText(instance.getIp());
         os.setText(instance.getOs());
         bandwidth.setText(String.format("%s Gb used of %s Gb", instance.getCurrentBandwidth(), instance.getAllowedBandwidth()));
