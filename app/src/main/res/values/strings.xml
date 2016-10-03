@@ -19,6 +19,7 @@
     <string name="run_staus">Run Staus</string>
     <string name="Main_IP">Main IP</string>
     <string name="charge">Pending Charge</string>
+    <string name="balance">Balance</string>
     <string name="OS">OS</string>
     <string name="Initial_Username">Initial Username</string>
     <string name="Initial_Password">Initial Password</string>

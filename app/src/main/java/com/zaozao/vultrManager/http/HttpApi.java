@@ -24,7 +24,7 @@ public class HttpApi {
 
     /**
      * /v1/server/list
-     * <p>
+     * <p/>
      * GET https://api.vultr.com/v1/server/list?api_key=EXAMPLE
      *
      * @param mContext
@@ -78,6 +78,18 @@ public class HttpApi {
         requestParams.add("SUBID", subId);
         httpClient.post(mContext, url, headers, requestParams, null, handler);
         Log.d("sean", "url = " + url + " key = " + ApiKeyStore.getInstance().getApiKey(mContext) + " id = " + subId + " timeout = " + httpClient.getTimeout());
+    }
+
+    public static void requestAccountInfo(Context mContext, TextHttpResponseHandler handler) {
+        if (ApiKeyStore.getInstance().getApiKey(mContext).equals("")) {
+            AppUtil.showToast((Activity) mContext, mContext.getString(R.string.api_key_blank));
+            return;
+        }
+        String url = BASE_URL + "account/info";
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("api_key", ApiKeyStore.getInstance().getApiKey(mContext));
+        httpClient.get(mContext, url, requestParams, handler);
+        Log.d("sean", "url = " + url + " key = " + ApiKeyStore.getInstance().getApiKey(mContext));
     }
 
     public static void setTimeout(int timeout) {

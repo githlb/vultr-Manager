@@ -3,13 +3,19 @@ package com.zaozao.vultrManager.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.zaozao.vultrManager.R;
+import com.zaozao.vultrManager.data.AccountInfo;
 import com.zaozao.vultrManager.data.Instance;
+import com.zaozao.vultrManager.utils.SharedPreferenceHelper;
+
+import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -40,13 +46,17 @@ public class InfoFragment extends Fragment {
     TextView storage;
     @InjectView(R.id.charge)
     TextView charge;
+    @InjectView(R.id.balance)
+    TextView balance;
 
     Instance instance;
+    SharedPreferenceHelper mSpHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
         ButterKnife.inject(this, view);
+        mSpHelper = new SharedPreferenceHelper(getActivity());
         return view;
     }
 
@@ -66,6 +76,15 @@ public class InfoFragment extends Fragment {
         memory.setText(instance.getRam());
         cpuCount.setText(instance.getCpuCount());
         storage.setText(instance.getDisk());
+
+        String str = mSpHelper.getKeyStr("account_info");
+        balance.setText(null);
+        if (!TextUtils.isEmpty(str)) {
+            AccountInfo info = JSON.parseObject(str, AccountInfo.class);
+            if (null != info) {
+                balance.setText(info.getBalance() + " $");
+            }
+        }
     }
 
     @Override

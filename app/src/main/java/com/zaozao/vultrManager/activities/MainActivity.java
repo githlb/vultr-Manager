@@ -21,6 +21,7 @@ import com.zaozao.vultrManager.utils.ApiKeyStore;
 import com.zaozao.vultrManager.utils.AppUtil;
 import com.zaozao.vultrManager.utils.BusProvider;
 import com.zaozao.vultrManager.utils.IConstant;
+import com.zaozao.vultrManager.utils.SharedPreferenceHelper;
 
 import org.apache.http.Header;
 
@@ -44,6 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     Bus bus = BusProvider.getBus();
     List<Instance> instanceList = new ArrayList<Instance>();
     InstanceAdapter instanceAdapter;
+    SharedPreferenceHelper mSpHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(goToInfo);
             }
         });
+        syncData();
         getInstances();
     }
 
@@ -103,6 +106,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     instanceList.add(instance);
                 }
                 instanceAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    public void syncData() {
+        mSpHelper = new SharedPreferenceHelper(MainActivity.this);
+        HttpApi.requestAccountInfo(MainActivity.this, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                mSpHelper.setKeyStr("account_info", null);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                if (200 == statusCode) {
+                    mSpHelper.setKeyStr("account_info", responseString);
+                } else {
+                    mSpHelper.setKeyStr("account_info", null);
+                }
             }
         });
     }
