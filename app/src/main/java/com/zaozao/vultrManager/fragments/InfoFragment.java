@@ -38,6 +38,8 @@ public class InfoFragment extends Fragment {
     TextView cpuCount;
     @InjectView(R.id.Storage)
     TextView storage;
+    @InjectView(R.id.charge)
+    TextView charge;
 
     Instance instance;
 
@@ -58,6 +60,7 @@ public class InfoFragment extends Fragment {
         runStatus.setText(instance.getPowerStatus());
         mainIp.setText(instance.getIp());
         os.setText(instance.getOs());
+        charge.setText(instance.getPendingCharges() + " $");
         bandwidth.setText(String.format("%s Gb used of %s Gb", instance.getCurrentBandwidth(), instance.getAllowedBandwidth()));
         password.setText(instance.getDefaultPassword());
         memory.setText(instance.getRam());
